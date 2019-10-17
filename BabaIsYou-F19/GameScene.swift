@@ -8,19 +8,67 @@
 
 import SpriteKit
 import GameplayKit
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
  var player:SKSpriteNode!
+    var wall:SKSpriteNode!
  let PLAYER_SPEED:CGFloat = 20
+     var count1 = 0
+     var count2 = 0
+    
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         self.player = self.childNode(withName: "player") as! SKSpriteNode
+        self.enumerateChildNodes(withName: "wall") {
+         (node, stop) in
+             self.wall = node as! SKSpriteNode
+            self.wall.physicsBody = SKPhysicsBody(rectangleOf: self.wall.size)
+            self.wall.physicsBody?.affectedByGravity = false
+         //wall.physicsBody?.isDynamic = false
+            self.wall.physicsBody?.categoryBitMask = 128
+            self.wall.physicsBody?.collisionBitMask=0
+         //self.wall = self.addChild("wall")as SKSpriteNode
+         //self.wall:SKSpriteNode
+            
     }
-   
+    }
     func didBegin(_ contact: SKPhysicsContact) {
         print("Something collided!")
+        let nodeA = contact.bodyA.node
+        let nodeB = contact.bodyB.node
+    
+                
+                if (nodeA == nil || nodeB == nil) {
+                    return
+                }
+       
+                if (nodeA!.name == "isblock" && nodeB!.name == "wallblock") {
+        
+                    print("intersecting wall and isblock")
+                    count1=1
+                }
+        
+        if (nodeA!.name == "isblock" && nodeB!.name == "stopblock") {
+            print("intersecting wall and stop block")
+            count2=2
+            
+        }
+        if(count1==1 && count2==2)
+        {
+            print ("you block the wall");
+            
+           self.player.physicsBody?.collisionBitMask = 252
+           self.wall.physicsBody?.collisionBitMask = 127
+          //  self.wall.physicsBody?
+        
+        
+        
+        }
+    
     }
+        
+        
+    
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
