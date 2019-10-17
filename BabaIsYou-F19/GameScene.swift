@@ -56,43 +56,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                count2=2
             
                 }
-             if(count1==1 && count2==2)
+                if(count1==1 && count2==2)
               {
-              print ("you block the wall");
-            
-              self.player.physicsBody?.collisionBitMask = 252
-              self.wall.physicsBody?.collisionBitMask = 127
-              //  self.wall.physicsBody?
+               print ("you block the wall");
+               //make wall is block active
+               self.player.physicsBody?.collisionBitMask = 252
+               self.wall.physicsBody?.collisionBitMask = 127
+               //  self.wall.physicsBody?
                }
+                
         
                 if (nodeA!.name == "isblock" && nodeB!.name == "flagblock") {
                        
-                                   print("intersecting flagblock and isblock")
-                                   count1=3
-                               }
+                print("intersecting flagblock and isblock")
+                    count1=3
+                        }
                        
-                              if (nodeA!.name == "isblock" && nodeB!.name == "stopblock") {
-                              print("intersecting isblock and stop block")
-                              count2=4
+                if (nodeA!.name == "isblock" && nodeB!.name == "stopblock") {
+                print("intersecting isblock and stop block")
+                     count2=4
                            
-                               }
-                            if(count1==3 && count2==4)
-                             {
-                             print ("you block the flag");
+                       }
+                if(count1==3 && count2==4)
+                      {
+                print ("you block the flag");
+                //make flag is block active
                            
-                             self.player.physicsBody?.collisionBitMask = 252
-                             self.flag.physicsBody?.collisionBitMask = 0
+                self.player.physicsBody?.collisionBitMask = 252
+                self.flag.physicsBody?.collisionBitMask = 0
                              //  self.wall.physicsBody?
                        
-                
-                
-        
               }
     
     }
         
         
-    
+
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
