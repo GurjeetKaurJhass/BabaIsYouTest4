@@ -12,6 +12,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
  var player:SKSpriteNode!
     var wall:SKSpriteNode!
+    var flag:SKSpriteNode!
  let PLAYER_SPEED:CGFloat = 20
      var count1 = 0
      var count2 = 0
@@ -19,6 +20,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         self.physicsWorld.contactDelegate = self
         self.player = self.childNode(withName: "player") as! SKSpriteNode
+        
+        self.flag = self.childNode(withName: "flag") as! SKSpriteNode
         self.enumerateChildNodes(withName: "wall") {
          (node, stop) in
              self.wall = node as! SKSpriteNode
@@ -48,22 +51,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     count1=1
                 }
         
-        if (nodeA!.name == "isblock" && nodeB!.name == "stopblock") {
-            print("intersecting wall and stop block")
-            count2=2
+               if (nodeA!.name == "isblock" && nodeB!.name == "stopblock") {
+               print("intersecting wall and stop block")
+               count2=2
             
-        }
-        if(count1==1 && count2==2)
-        {
-            print ("you block the wall");
+                }
+             if(count1==1 && count2==2)
+              {
+              print ("you block the wall");
             
-           self.player.physicsBody?.collisionBitMask = 252
-           self.wall.physicsBody?.collisionBitMask = 127
-          //  self.wall.physicsBody?
+              self.player.physicsBody?.collisionBitMask = 252
+              self.wall.physicsBody?.collisionBitMask = 127
+              //  self.wall.physicsBody?
+               }
         
+                if (nodeA!.name == "isblock" && nodeB!.name == "flagblock") {
+                       
+                                   print("intersecting flagblock and isblock")
+                                   count1=3
+                               }
+                       
+                              if (nodeA!.name == "isblock" && nodeB!.name == "stopblock") {
+                              print("intersecting isblock and stop block")
+                              count2=4
+                           
+                               }
+                            if(count1==3 && count2==4)
+                             {
+                             print ("you block the flag");
+                           
+                             self.player.physicsBody?.collisionBitMask = 252
+                             self.flag.physicsBody?.collisionBitMask = 0
+                             //  self.wall.physicsBody?
+                       
+                
+                
         
-        
-        }
+              }
     
     }
         
